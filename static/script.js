@@ -2,7 +2,7 @@ function gen(){
     let url = document.getElementById("url");
     if(url.value == ""){
         document.getElementById("sum").innerText = "No URL inputted :(";
-    }else if(url.value.includes("https://www.youtube.com/watch") == false){
+    }else if(url.value.indexOf("https://www.youtube.com/watch") == -1 && url.value.indexOf("https://youtu.be/") == -1){
         document.getElementById("sum").innerText = "Not a valid URL :(";
     }else{
         let loadings = ["loading", "loading.", "loading..", "loading..."];
