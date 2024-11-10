@@ -3,7 +3,7 @@ from youtube_transcript_api import YouTubeTranscriptApi as ytapi
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-genai.configure(api_key="AIzaSyDwc7y7YOWaBlSopVLwRXmayN0jKGpvGVE")
+genai.configure(api_key="AIzaSyDwc7y7YOWaBlSopVLwRXmayN0jKGpvGVE") #replace with your own apikey if you really want
 
 app=Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -20,7 +20,11 @@ def summarize():
     else:
         global model
         url = str(request.json["data"])
-        url = url.replace("https://www.youtube.com/watch?v=", "")
+        if "https://www.youtube.com/watch?v=" in url:
+            url = url.replace("https://www.youtube.com/watch?v=", "")
+        elif "https://youtu.be/" in url:
+            url = url.replace("https://youtu.be/", "")
+            url = url[:url.index("?si=")]
         transcripts = ytapi.get_transcript(url)
         accTranscript = ""
         for i in transcripts:
